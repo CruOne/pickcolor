@@ -8,8 +8,8 @@ import { getEnumLength } from '@/utils/getEnumLength';
 import { Modes } from '@/enums/Modes';
 
 const itemsTotal = getEnumLength(Modes);
-const iconSize = 80;
-const togglerWidth = 360;
+const iconSize = 60;
+const togglerWidth = 270;
 const itemsGap = (togglerWidth - iconSize * itemsTotal) / (itemsTotal - 1);
 
 const icons = [
@@ -25,12 +25,15 @@ const icons = [
 ];
 
 const Styles = styled.div<{width: number}>`
-  display: relative;
+  position: relative;
+
   width: ${({ width }) => width}px;
   padding: 10px;
 
   .modes {
+    position: relative;
     display: flex;
+    z-index: 2;
     justify-content: space-between;
   }
 
@@ -43,9 +46,11 @@ const Selector = styled.div<{itemIdx: number}>`
   margin: -10px;
   transform: translateX(${({ itemIdx }) => iconSize * itemIdx + itemsGap * itemIdx}px);
   position: absolute;
-  width: 100px;
-  height: 100px;
-  border: 2px solid black;
+  width: ${iconSize + 20}px;
+  height: ${iconSize + 20}px;
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 50%;
+  z-index: 1;
   transition: transform 200ms;
 `;
 

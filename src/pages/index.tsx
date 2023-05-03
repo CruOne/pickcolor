@@ -17,33 +17,40 @@ const Styles = styled.div<{color: string}>`
   background-color: ${({ color }) => color};
   transition: background-color 150ms;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  gap: 100px;
-  justify-content: center;
-  align-items: center;
+  padding-top: 200px;
   .gen-block {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 40px;
   }
+  
+  &>div {
+    display: flex;
+    flex-direction: column;
+    gap: 70px;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const GenerateButton = styled.button`
-  width: 200px;
-  padding: 10px;
-  font-size: 20px;
-  border: 2px solid black;
-  border-radius: 10px;
+  padding: 10px 40px;
+  font-size: 17px;
+  outline: none;
+  border: none;
+  border-radius: 6px;
+  background-color: rgba(0,0,0,0.2);
+
   cursor: pointer;
-  :hover {
-    background-color: #ccc;
+  &:hover {
+    background-color: rgba(0,0,0,0.3);
   }
-  :active {
-    background-color: #cdfcff;
+
+  &:active {
+    transform: scale(1.02);
   }
-  transition: background-color 500ms;
+  transition: background-color 0.2s ease-in-out;
 `;
 
 export default function Home() {
@@ -60,12 +67,14 @@ export default function Home() {
 
   return (
     <Styles color={color}>
-      <ModeToggler mode={mode} changeMode={changeMode} />
-      <div className="gen-block">
-        <HexCode code={color} />
-        <GenerateButton onClick={() => { setColor(colorGenerators[mode]()); }}>
-          Generate Color
-        </GenerateButton>
+      <div>
+        <ModeToggler mode={mode} changeMode={changeMode} />
+        <div className="gen-block">
+          <HexCode code={color} />
+          <GenerateButton onClick={() => { setColor(colorGenerators[mode]()); }}>
+            random
+          </GenerateButton>
+        </div>
       </div>
     </Styles>
   );

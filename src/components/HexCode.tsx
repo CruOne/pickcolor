@@ -7,18 +7,34 @@ import { putToClipboard } from '@/utils/putToClipboard';
 
 const hoverColor = 'invert(83%) sepia(7%) saturate(154%) hue-rotate(71deg) brightness(86%) contrast(79%)';
 
-const Styles = styled.div<{copied: boolean}>`
+const Styles = styled.button<{copied: boolean}>`
   display: flex;
+  cursor: pointer;
+  align-items: center;
+  font-family: sans-serif;
+  font-size: 20px;
+  padding: 4px 18px;
+  border-radius: 6px;
+  outline: none;
+  border: none;
+  background-color: rgba(0,0,0,0.2);
+  transition: all 0.2s ease-in-out;
+  
+  
+    &:hover {
+      background-color: rgba(0,0,0,0.3);
+    }
+  
+    &:active {
+      transform: scale(1.05);
+    }
+  
+  &>div {
+    margin-right: 12px;
+    min-width: 80px;
+  }
   img {
     cursor: pointer;
-  ${({ copied }) => (
-    copied
-      ? '' : `
-        :hover {
-          filter: ${hoverColor};
-        };
-        `
-  )}
   }
 `;
 
@@ -40,11 +56,11 @@ export const HexCode: FC<HexCodeProps> = ({ code }) => {
   }, [copied]);
 
   return (
-    <Styles copied={copied}>
-      <div style={{ fontSize: '30px' }}>
+    <Styles copied={copied} onClick={handleCopyClick}>
+      <div>
         {code}
       </div>
-      <Image src={copied ? doneIcon : copyIcon} alt="copy" width={30} onClick={handleCopyClick} />
+      <Image src={copied ? doneIcon : copyIcon} alt="copy" width={26} />
     </Styles>
   );
 };
