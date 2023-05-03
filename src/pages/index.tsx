@@ -4,6 +4,14 @@ import { ModeToggler } from '@/components/ModeToggler';
 import { Modes } from '@/enums/Modes';
 import { getRandomColor } from '@/utils/getRandomColor';
 import { HexCode } from '@/components/HexCode';
+import { getRandomPastelColor } from '@/utils/getRandomPastelColor';
+import { getRandomDarkColor } from '@/utils/getRandomDarkColor';
+
+const colorGenerators = {
+  [Modes.LIGHT]: getRandomPastelColor,
+  [Modes.DARK]: getRandomDarkColor,
+  [Modes.RANDOM]: getRandomColor,
+};
 
 const Styles = styled.div<{color: string}>`
   background-color: ${({ color }) => color};
@@ -55,7 +63,7 @@ export default function Home() {
       <ModeToggler mode={mode} changeMode={changeMode} />
       <div className="gen-block">
         <HexCode code={color} />
-        <GenerateButton onClick={() => { setColor(getRandomColor()); }}>
+        <GenerateButton onClick={() => { setColor(colorGenerators[mode]()); }}>
           Generate Color
         </GenerateButton>
       </div>

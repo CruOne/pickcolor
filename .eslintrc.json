@@ -18,9 +18,11 @@
     "import/no-extraneous-dependencies": "off",
     "no-console": "off",
     "import/extensions": "off",
+    "no-shadow": "off",
+    "no-multi-assign": "off",
+    "no-plusplus": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".tsx"] }],
     "react/jsx-props-no-spreading": "off",
-    "no-shadow": "off",
     "react/function-component-definition": "off"
   },
   "settings": {
