@@ -28,7 +28,6 @@ const Styles = styled.div<{width: number}>`
   display: relative;
   width: ${({ width }) => width}px;
   padding: 10px;
-  margin: 50px auto;
 
   .modes {
     display: flex;
