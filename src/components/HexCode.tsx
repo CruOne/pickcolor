@@ -29,6 +29,11 @@ const Hover = styled.div<{copied: boolean, lightControls: boolean}>`
     margin-right: 10px;
     font-size: 30px;
     color: ${({ lightControls }) => (lightControls ? 'white' : 'black')};
+
+    .codeText {
+      min-width: 125px;
+    }
+
     img {
       margin-left: 10px;
       filter: ${({ lightControls }) => (lightControls ? lightColor : darkColor)};
@@ -97,7 +102,7 @@ export const HexCode: FC<HexCodeProps> = ({ code, lightControls }) => {
   return (
     <Hover copied={copied} lightControls={lightControls} onClick={handleCopyClick}>
       <div className="code">
-        {code}
+        <div className="codeText">{code}</div>
         <Image src={copied ? doneIcon : copyIcon} alt="copy" width={30} />
       </div>
     </Hover>
