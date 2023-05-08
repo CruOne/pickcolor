@@ -6,6 +6,7 @@ import { getRandomColor } from '@/utils/getRandomColor';
 import { HexCode } from '@/components/HexCode';
 import { getRandomPastelColor } from '@/utils/getRandomPastelColor';
 import { getRandomDarkColor } from '@/utils/getRandomDarkColor';
+import { Button } from '@/components/Button';
 
 const colorGenerators = {
   [Modes.LIGHT]: getRandomPastelColor,
@@ -17,11 +18,14 @@ const Styles = styled.div<{color: string}>`
   background-color: ${({ color }) => color};
   transition: background-color 150ms;
   height: 100vh;
+  font-family: 'monospaceFont';
+
   display: flex;
   flex-direction: column;
   gap: 100px;
   justify-content: center;
   align-items: center;
+
   .gen-block {
     display: flex;
     flex-direction: column;
@@ -30,24 +34,9 @@ const Styles = styled.div<{color: string}>`
   }
 `;
 
-const GenerateButton = styled.button`
-  width: 200px;
-  padding: 10px;
-  font-size: 20px;
-  border: 2px solid black;
-  border-radius: 10px;
-  cursor: pointer;
-  :hover {
-    background-color: #ccc;
-  }
-  :active {
-    background-color: #cdfcff;
-  }
-  transition: background-color 500ms;
-`;
-
 export default function Home() {
   const [mode, setMode] = useState(Modes.LIGHT);
+  const [lightControls, setLightControls] = useState(false);
   const [color, setColor] = useState('');
 
   useEffect(() => {
@@ -58,14 +47,17 @@ export default function Home() {
     setMode(id);
   };
 
+  const handleClickGenerate = () => {
+    setColor(colorGenerators[mode]());
+    setLightControls(mode !== Modes.LIGHT);
+  };
+
   return (
     <Styles color={color}>
-      <ModeToggler mode={mode} changeMode={changeMode} />
+      <ModeToggler mode={mode} changeMode={changeMode} lightControls={lightControls} />
       <div className="gen-block">
-        <HexCode code={color} />
-        <GenerateButton onClick={() => { setColor(colorGenerators[mode]()); }}>
-          Generate Color
-        </GenerateButton>
+        <HexCode code={color} lightControls={lightControls} />
+        <Button handleClick={handleClickGenerate} />
       </div>
     </Styles>
   );

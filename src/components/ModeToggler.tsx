@@ -8,8 +8,8 @@ import { getEnumLength } from '@/utils/getEnumLength';
 import { Modes } from '@/enums/Modes';
 
 const itemsTotal = getEnumLength(Modes);
-const iconSize = 80;
-const togglerWidth = 360;
+const iconSize = 60;
+const togglerWidth = 270;
 const itemsGap = (togglerWidth - iconSize * itemsTotal) / (itemsTotal - 1);
 
 const icons = [
@@ -36,27 +36,32 @@ const Styles = styled.div<{width: number}>`
 
   .img {
     cursor: pointer;
+    z-index: 1;
   }
-`;
-
-const Selector = styled.div<{itemIdx: number}>`
-  margin: -10px;
-  transform: translateX(${({ itemIdx }) => iconSize * itemIdx + itemsGap * itemIdx}px);
-  position: absolute;
-  width: 100px;
-  height: 100px;
-  border: 2px solid black;
-  transition: transform 200ms;
 `;
 
 interface ModeTogglerProps {
   mode: Modes
   changeMode: (mode: Modes) => void
+  lightControls: boolean
 }
 
-export const ModeToggler: FC<ModeTogglerProps> = ({ mode, changeMode }) => (
+const Selector = styled.div <Pick<ModeTogglerProps, 'mode' | 'lightControls'>>`
+  margin: -10px;
+  transform: translateX(${({ mode }) => iconSize * mode + itemsGap * mode}px);
+  position: absolute;
+  width: ${iconSize + 20}px;
+  height: ${iconSize + 20}px;
+  border-radius: 50%;
+  transition: transform 200ms;
+  background-color: ${({ lightControls }) => (lightControls ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.2)')};
+`;
+
+export const ModeToggler: FC<ModeTogglerProps> = ({
+  mode, changeMode, lightControls,
+}) => (
   <Styles width={togglerWidth}>
-    <Selector itemIdx={mode} />
+    <Selector mode={mode} lightControls={lightControls} />
     <div className="modes">
       {
         icons.map((icon) => (
