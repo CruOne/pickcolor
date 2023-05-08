@@ -21,6 +21,8 @@ const Hover = styled.div<{copied: boolean, lightControls: boolean}>`
   position: relative;
 
   .code {
+    height: 100%;
+
     display: flex;
     align-items: center;
     justify-content: center;
